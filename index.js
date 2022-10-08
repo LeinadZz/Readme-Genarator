@@ -1,6 +1,7 @@
 // Node Modules
 const inquirer = require('inquirer');
 const fs = require('fs');
+const genarateTemplate = require('./utility/template.js')
 
 // Inquirer Questions
 const questions = [
@@ -30,22 +31,22 @@ const questions = [
         },
         {
             type : 'input',
-            message : "Please add installation intructions",
+            message : "Please add installation intructions:",
             name : "installation",
         },
         {
             type : 'input',
-            message : "Did anyone contribute to this project? If yes, please enter names",
+            message : "Did anyone contribute to this project? If yes, please enter names:",
             name : "contribution",
         },
         {
             type : 'input',
-            message : "Please add any guidelines",
+            message : "Please add any guidelines:",
             name : "guideline",
         },
         {
             type : 'input',
-            message : "Please add test instructions",
+            message : "Please add test instructions:",
             name : "instruction",
         },
         {
@@ -90,66 +91,10 @@ function writeToFile(fileName, data) {
     });
 }
 
-function templateMarkdown(data) {
-    return `# ${data.title}
-
-    ${getBadge(data.license)}
-
-    ${data.description}
-
-    ${getTable(data.contribution, data.instruction)}
-
-    ${getSection('Installation', data.installation)}
-
-    ${getSection('Guidelines', data.guideline)}
-
-    ${getSection('License', `This project is licensed under the [${data.license}](${getLicenseLink(data.license)}).`)}
-
-    ${getSection('Contributing', data.contribution)}
-
-    ${getSection('Instructions', data.instruction)}
-
-    ${getSection('Questions', `For additional questions, feel free to [send me an email](mailto:${data.email}). You can also find more information on [my GitHub](https://guthub.com/${data.username}). `)}
-    `
-}
-
-function getTable(contribution, instruction) {
-    return `## Table of Contents
-    
-    - [Installation](#installation)
-    - [Guidelines](#guideline)
-    - [License](#license)
-    - [Contributing](#contribution)
-    - [Instructions](#instruction)
-    - [Questions](#Questions)`;
-}
-
-function getSection(title, body) {
-    return `## ${title}
-    ${body}`;
-}
-
-function getBadge(license) {
-    return `[![${license}](https://img.shields.io/badge/License-${formatURLText(license)}-brightGreen)](${getLicenseLink(license)})`;
-}
-
-function formatURLText(text) {
-    return text.replace(/  /g, '%20');
-}
-
-function getLicenseLink(license) {
-    switch (license) {
-        case 'MIT License':
-            return 'https://opensource.org/licenses/MIT'
-        case 'ISC License':
-            return 'https://opensource.org/licenses/ISC'
-    }
-}
-
 async function init() {
     const answers = await inquirer.prompt(questions);
-    const template = templateMarkdown(answers);
-    writeToFile('exported_README.md', template);
+    const template = genarateTemplate(answers);
+    writeToFile('./exported/exported_README.md', template);
 }
 
 init();
