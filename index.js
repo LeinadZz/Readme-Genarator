@@ -3,8 +3,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 // Inquirer Questions
-inquirer.prompt(
-    [
+const questions = [
         {
             type : 'input',
             message : "What is your Project title?",
@@ -82,8 +81,7 @@ inquirer.prompt(
                 }
             }
         }
-    ]
-)
+    ];
 
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, err => {
@@ -131,6 +129,14 @@ function getSection(title, body) {
     ${body}`;
 }
 
+function getBadge(license) {
+    return `[![${license}](https://img.shields.io/badge/License-${formatURLText(license)}-brightGreen)](${getLicenseLink(license)})`;
+}
+
+function formatURLText(text) {
+    return text.replace(/  /g, '%20');
+}
+
 function getLicenseLink(license) {
     switch (license) {
         case 'MIT License':
@@ -143,7 +149,7 @@ function getLicenseLink(license) {
 async function init() {
     const answers = await inquirer.prompt(questions);
     const template = templateMarkdown(answers);
-    writeToFile('./exported/exported_README.md', template);
+    writeToFile('exported_README.md', template);
 }
 
 init();
