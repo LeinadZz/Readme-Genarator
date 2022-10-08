@@ -84,3 +84,33 @@ inquirer.prompt(
         }, 
     ]
 )
+
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, err => {
+        if (err) throw err;
+        console.log('Template was Generated !');
+    });
+}
+
+function templateMarkdown(data) {
+    return `# ${data.title}
+
+    ${getBadge(data.license)}
+
+    ${data.description}
+
+    ${getTable(data.contribution, data.instruction)}
+
+    ${getSection('Installation', data.installation)}
+
+    ${getSection('Guidelines', data.guideline)}
+
+    ${getSection('License', `This project is licensed under the [${data.license}](${getLicenseLink(data.license)}).`)}
+
+    ${getSection('Contributing', data.contribution)}
+
+    ${getSection('Instructions', data.instruction)}
+
+    ${getSection('Questions', `For additional questions, feel free to [send me an email](mailto:${data.email}). You can also find more information on [my GitHub](https://guthub.com/${data.username}). `)}
+    `
+}
