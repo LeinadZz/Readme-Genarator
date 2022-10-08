@@ -114,3 +114,15 @@ function templateMarkdown(data) {
     ${getSection('Questions', `For additional questions, feel free to [send me an email](mailto:${data.email}). You can also find more information on [my GitHub](https://guthub.com/${data.username}). `)}
     `
 }
+
+function getTable(contribution, instruction) {
+    return `## Table of Contents
+    
+    - [Installation](#installation)
+    - [Guidelines](#guideline)
+    - [License](#license)
+    - [Contributing](#contribution)
+    - [Instructions](#instruction)
+    - [Questions](#Questions)`;
+}
+
