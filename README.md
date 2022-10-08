@@ -56,6 +56,6 @@ Run the Genarator
 
 https://watch.screencastify.com/v/w3WqdRDV98pcybFVcV92
 
-## ScreenSHot
+## Screenshot
 ![Desktop Screenshot 2022 10 08 - 10 22 35 04](https://user-images.githubusercontent.com/109697090/194721569-57addd48-bac5-4e46-a9e4-4beadb2d766e.png)
 
