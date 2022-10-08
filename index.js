@@ -81,7 +81,7 @@ inquirer.prompt(
                     return 'Please enter your email'
                 }
             }
-        }, 
+        }
     ]
 )
 
@@ -126,3 +126,24 @@ function getTable(contribution, instruction) {
     - [Questions](#Questions)`;
 }
 
+function getSection(title, body) {
+    return `## ${title}
+    ${body}`;
+}
+
+function getLicenseLink(license) {
+    switch (license) {
+        case 'MIT License':
+            return 'https://opensource.org/licenses/MIT'
+        case 'ISC License':
+            return 'https://opensource.org/licenses/ISC'
+    }
+}
+
+async function init() {
+    const answers = await inquirer.prompt(questions);
+    const template = templateMarkdown(answers);
+    writeToFile('./exported/exported_README.md', template);
+}
+
+init();
